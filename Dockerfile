@@ -9,8 +9,6 @@ libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxc
 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
 fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget && \
-wget https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64.deb && \
-dpkg -i dumb-init_*.deb && rm -f dumb-init_*.deb && \
 apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
 FROM base as build
@@ -33,7 +31,5 @@ COPY --from=build /usr/src/app/build build
 COPY --from=build /usr/src/app/proto proto
 
 EXPOSE 8081
-
-ENTRYPOINT ["dumb-init", "--"]
 
 CMD ["node", "build/app.js", "server", "--port=8081"]
